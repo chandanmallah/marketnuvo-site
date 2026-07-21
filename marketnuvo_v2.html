@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketNuvo — Community Driven Growth Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Clean White + Indigo palette */
+  --navy:        #1E1B4B;   /* deep indigo ink + dark surfaces */
+  --navy-mid:    #26235C;
+  --navy-light:  #312E81;
+  --navy-card:   #211E4F;
+  --navy-border: #35316F;
+
+  --gold:        #4F46E5;   /* indigo-600 — primary accent */
+  --gold-bright: #6366F1;   /* indigo-500 */
+  --gold-light:  #A5B4FC;   /* indigo-300 — accent on dark */
+  --gold-pale:   #EEF0FF;   /* light indigo chip bg */
+  --gold-glow:   rgba(79,70,229,0.14);
+
+  --platinum:    #E8E4DC;
+  --cream:       #FBFBFE;   /* body bg — cool white */
+  --ivory:       #F5F6FC;   /* alt section bg */
+  --ivory-mid:   #E6E8F5;   /* light borders */
+
+  --white:       #ffffff;
+  --text-dark:   #1E1B4B;
+  --muted-light: rgba(232,228,220,0.52);
+  --muted-navy:  #5E6180;   /* cool muted body text */
+
+  --grad-hero:   linear-gradient(160deg, #FFFFFF 0%, #F7F8FF 42%, #EEF0FF 100%);
+  --grad-gold:   linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #4F46E5 100%);
+  --grad-gold2:  linear-gradient(135deg, #4F46E5, #818CF8);
+  --grad-cta:    linear-gradient(145deg, #1E1B4B 0%, #26235C 55%, #312E81 100%);
+  --grad-card:   linear-gradient(145deg, #211E4F, #312E81);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Outfit', sans-serif;
+
+  --sh-card:    0 4px 32px rgba(30,27,75,0.10), 0 1px 4px rgba(30,27,75,0.06);
+  --sh-hover:   0 24px 64px rgba(30,27,75,0.16), 0 4px 16px rgba(30,27,75,0.10);
+  --sh-gold:    0 8px 40px rgba(79,70,229,0.30);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--navy); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 74px; padding: 0 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background .45s ease, border-color .45s ease, backdrop-filter .45s ease;
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: rgba(79,70,229,0.12);
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--grad-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  color: #fff; box-shadow: var(--sh-gold); flex-shrink: 0;
+}
+.logo-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--navy); letter-spacing: 0.01em; }
+.logo-name span { color: var(--gold-bright); font-style: italic; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { font-size: 13.5px; font-weight: 400; letter-spacing: 0.04em; color: rgba(30,27,75,0.62); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-size: 13px; font-weight: 600;
+  background: var(--grad-gold); color: #fff;
+  padding: 10px 26px; border-radius: 100px;
+  text-decoration: none; box-shadow: var(--sh-gold);
+  transition: transform .2s, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(79,70,229,0.52); }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  min-height: 100vh; background: var(--grad-hero);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; padding: 120px 60px 90px;
+}
+/* Dot grid */
+.hero::before {
+  content: '';  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(79,70,229,0.07) 1px, transparent 1px);
+  background-size: 42px 42px; pointer-events: none;
+}
+/* Diagonal light sweep */
+.hero::after {
+  content: ''; position: absolute; top: -20%; left: -10%; width: 60%; height: 140%;
+  background: linear-gradient(108deg, transparent 38%, rgba(79,70,229,0.04) 55%, transparent 68%);
+  pointer-events: none; animation: sweep 10s ease-in-out infinite alternate;
+}
+@keyframes sweep { from{opacity:.3} to{opacity:1} }
+
+.orb { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; }
+.orb-1 { width: 580px; height: 580px; background: rgba(79,70,229,0.09); top: -130px; right: 0%; animation: orb-drift 14s ease-in-out infinite; }
+.orb-2 { width: 420px; height: 420px; background: rgba(129,140,248,0.10); bottom: -90px; left: 5%; animation: orb-drift 17s ease-in-out infinite reverse; }
+.orb-3 { width: 320px; height: 320px; background: rgba(79,70,229,0.06); top: 32%; left: 42%; animation: orb-drift 11s ease-in-out infinite 2s; }
+@keyframes orb-drift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(28px,-36px)} 66%{transform:translate(-22px,24px)} }
+
+.hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(79,70,229,0.1); border: 1px solid rgba(79,70,229,0.28);
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--gold-bright); text-transform: uppercase; margin-bottom: 26px;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); flex-shrink: 0; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.hero-h1 { font-family: var(--font-display); font-size: clamp(50px,5.5vw,80px); font-weight: 600; line-height: 1.06; color: var(--navy); letter-spacing: -0.01em; margin-bottom: 24px; }
+.hero-h1 em { font-style: italic; color: var(--gold); }
+.hero-p { font-size: 15.5px; font-weight: 300; line-height: 1.9; color: var(--muted-navy); margin-bottom: 44px; max-width: 450px; }
+
+.hero-btns { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.btn-fill {
+  display: inline-flex; align-items: center; gap: 11px;
+  background: var(--grad-gold); color: #fff;
+  font-size: 14.5px; font-weight: 700; padding: 16px 32px;
+  border-radius: 100px; text-decoration: none;
+  box-shadow: var(--sh-gold); transition: transform .2s, box-shadow .2s;
+}
+.btn-fill:hover { transform: translateY(-2px); box-shadow: 0 20px 52px rgba(79,70,229,0.55); }
+.btn-fill .ico { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.btn-ghost-w { font-size: 14.5px; font-weight: 500; color: var(--muted-navy); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+.btn-ghost-w:hover { color: var(--gold); }
+
+.hero-trust { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(30,27,75,0.12); display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.trust-lbl { font-size: 10px; font-weight: 500; color: rgba(30,27,75,0.42); text-transform: uppercase; letter-spacing: 0.13em; white-space: nowrap; }
+.trust-brands { display: flex; gap: 26px; flex-wrap: wrap; align-items: center; }
+.trust-brand { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: rgba(30,27,75,0.34); letter-spacing: 0.02em; transition: color .2s; cursor: default; }
+.trust-brand:hover { color: var(--gold); }
+
+/* Hero card */
+.hero-visual { position: relative; }
+.hero-main-card {
+  background: #fff; backdrop-filter: blur(20px);
+  border: 1px solid var(--ivory-mid); border-radius: 26px;
+  overflow: hidden; box-shadow: 0 30px 70px rgba(30,27,75,0.16);
+}
+.hero-main-img { width: 100%; aspect-ratio: 4/3; overflow: hidden; }
+.hero-main-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; display: block; }
+.hero-main-card:hover .hero-main-img img { transform: scale(1.04); }
+.hero-main-body { padding: 24px 30px; }
+.hmc-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.hmc-title { font-family: var(--font-display); font-size: 16.5px; font-weight: 600; color: var(--navy); }
+.hmc-badge { font-size: 11px; font-weight: 600; background: rgba(79,70,229,0.2); color: var(--gold-bright); padding: 3px 11px; border-radius: 100px; }
+.hmc-bar-bg { height: 5px; border-radius: 100px; background: var(--ivory-mid); overflow: hidden; }
+.hmc-bar { height: 100%; border-radius: 100px; background: var(--grad-gold); animation: bar-grow 2s 0.8s ease-out both; }
+@keyframes bar-grow { from{width:0} to{width:78%} }
+.hmc-sub { font-size: 11.5px; color: var(--muted-navy); margin-top: 9px; }
+
+.fc { position: absolute; background: rgba(255,255,255,0.97); border-radius: 18px; padding: 15px 20px; box-shadow: 0 20px 56px rgba(4,7,16,0.3); animation: fc-float 7s ease-in-out infinite; }
+.fc-1 { left: -54px; top: 22%; animation-delay: 0s; }
+.fc-2 { right: -44px; top: 52%; animation-delay: -3.5s; }
+.fc-3 { left: -26px; bottom: 14%; animation-delay: -1.8s; }
+@keyframes fc-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.fc-ico { width: 32px; height: 32px; border-radius: 9px; background: var(--grad-gold); display: flex; align-items: center; justify-content: center; font-size: 14px; margin-bottom: 7px; }
+.fc-num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1; }
+.fc-lbl { font-size: 10px; font-weight: 500; color: var(--muted-navy); margin-top: 1px; }
+.fc-pill { display: inline-flex; align-items: center; gap: 3px; background: rgba(79,70,229,0.12); color: var(--gold); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin-top: 4px; }
+
+/* ══════════════════════════════
+   TICKER
+══════════════════════════════ */
+.ticker { background: var(--navy-mid); border-top: 1px solid rgba(79,70,229,0.15); border-bottom: 1px solid rgba(79,70,229,0.15); padding: 15px 0; overflow: hidden; position: relative; }
+.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none; }
+.ticker::before { left: 0; background: linear-gradient(to right, var(--navy-mid), transparent); }
+.ticker::after  { right: 0; background: linear-gradient(to left, var(--navy-mid), transparent); }
+.ticker-track { display: flex; animation: tick 32s linear infinite; width: max-content; }
+.t-item { display: flex; align-items: center; gap: 24px; padding: 0 24px; white-space: nowrap; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(232,228,220,0.45); }
+.t-sep { color: var(--gold); font-size: 7px; flex-shrink: 0; }
+@keyframes tick { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ══════════════════════════════
+   SHARED
+══════════════════════════════ */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+.sec { padding: 100px 0; }
+.sec-alt { background: var(--ivory); }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--grad-gold); border-radius: 2px; display: block; }
+
+.h2 { font-family: var(--font-display); font-size: clamp(34px,3.8vw,54px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.12; color: var(--navy); }
+.h2 em { font-style: italic; color: var(--gold); }
+.h2-white { color: #fff; }
+.h2-white em { color: var(--gold-bright); }
+.lead { font-size: 15.5px; font-weight: 300; color: var(--muted-navy); line-height: 1.88; max-width: 520px; }
+.btn-outline { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: var(--gold); border: 1.5px solid var(--gold); padding: 11px 26px; border-radius: 100px; text-decoration: none; white-space: nowrap; letter-spacing: 0.02em; transition: background .2s, color .2s; }
+.btn-outline:hover { background: var(--gold); color: var(--navy); }
+
+/* SERVICES */
+.svc-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 54px; gap: 32px; }
+.svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.svc-card {
+  background: var(--white); border-radius: 22px;
+  border: 1px solid var(--ivory-mid); padding: 38px 32px;
+  position: relative; overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  box-shadow: var(--sh-card);
+}
+.svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--grad-gold); transform: scaleX(0); transform-origin: left; transition: transform .35s; }
+.svc-card:hover { transform: translateY(-8px); box-shadow: var(--sh-hover); border-color: rgba(79,70,229,0.2); }
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-ico { width: 54px; height: 54px; border-radius: 15px; background: var(--gold-pale); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: background .3s; }
+.svc-card:hover .svc-ico { background: var(--gold-glow); }
+.svc-name { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--navy); letter-spacing: -0.01em; margin-bottom: 11px; line-height: 1.25; }
+.svc-desc { font-size: 14px; font-weight: 300; color: var(--muted-navy); line-height: 1.82; }
+.svc-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 22px; font-size: 13px; font-weight: 600; color: var(--gold); text-decoration: none; transition: gap .2s; }
+.svc-card:hover .svc-more { gap: 11px; }
+
+/* STATS */
+.stats-row { background: var(--navy); padding: 60px 0; border-top: 1px solid rgba(79,70,229,0.12); border-bottom: 1px solid rgba(79,70,229,0.12); position: relative; overflow: hidden; }
+.stats-row::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(79,70,229,0.05) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+.stats-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; z-index: 1; }
+.st { text-align: center; padding: 8px 0; border-right: 1px solid rgba(79,70,229,0.15); }
+.st:last-child { border-right: none; }
+.st-num { font-family: var(--font-display); font-size: 58px; font-weight: 600; line-height: 1; color: var(--gold-bright); margin-bottom: 7px; }
+.st-num sup { font-size: 28px; }
+.st-lbl { font-size: 11.5px; font-weight: 400; color: rgba(232,228,220,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-img-stack { position: relative; }
+.a-main { width: 100%; aspect-ratio: 9/10; border-radius: 26px; overflow: hidden; box-shadow: var(--sh-hover); }
+.a-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.a-sec { position: absolute; bottom: -30px; right: -30px; width: 54%; aspect-ratio: 1; border-radius: 20px; overflow: hidden; border: 5px solid var(--cream); box-shadow: var(--sh-hover); }
+.a-sec img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.a-badge { position: absolute; top: 30px; left: -24px; background: var(--navy); border-radius: 18px; padding: 16px 20px; box-shadow: var(--sh-hover); text-align: center; border: 1px solid rgba(79,70,229,0.2); }
+.a-badge-num { font-family: var(--font-display); font-size: 38px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+.a-badge-lbl { font-size: 11px; color: rgba(232,228,220,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+.about-list { list-style: none; margin: 30px 0 0; display: flex; flex-direction: column; gap: 16px; }
+.about-list li { display: flex; align-items: flex-start; gap: 13px; font-size: 15px; font-weight: 300; color: var(--muted-navy); line-height: 1.75; }
+.chk { width: 21px; height: 21px; border-radius: 50%; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.exp-badge { display: flex; align-items: center; gap: 15px; background: linear-gradient(135deg,rgba(79,70,229,0.07),rgba(79,70,229,0.02)); border: 1px solid rgba(79,70,229,0.18); border-radius: 16px; padding: 17px 22px; margin-top: 26px; }
+.exp-ico { font-size: 28px; }
+.exp-text strong { font-size: 14px; font-weight: 600; color: var(--navy); display: block; }
+.exp-text span { font-size: 12px; font-weight: 300; color: var(--muted-navy); }
+
+/* PROCESS */
+.process-wrap { background: var(--ivory); padding: 100px 0; }
+.process-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.step { display: flex; gap: 22px; padding: 30px 0; border-bottom: 1px solid var(--ivory-mid); }
+.step:last-child { border-bottom: none; }
+.step-left { display: flex; flex-direction: column; align-items: center; }
+.step-num { width: 42px; height: 42px; border-radius: 50%; background: var(--gold-pale); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--gold); border: 2px solid rgba(79,70,229,0.2); transition: background .3s, border-color .3s, color .3s; }
+.step:hover .step-num { background: var(--gold); border-color: var(--gold); color: #fff; }
+.step-connector { width: 2px; flex: 1; min-height: 20px; background: var(--ivory-mid); margin: 8px auto 0; }
+.step:last-child .step-connector { display: none; }
+.step-content { padding-top: 7px; }
+.step-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 7px; }
+.step-desc { font-size: 14px; font-weight: 300; color: var(--muted-navy); line-height: 1.78; }
+.process-img { border-radius: 26px; overflow: hidden; box-shadow: var(--sh-hover); position: relative; }
+.process-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+.process-img-badge { position: absolute; bottom: 26px; left: 26px; right: 26px; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-radius: 16px; padding: 17px 22px; display: flex; align-items: center; gap: 15px; box-shadow: 0 8px 28px rgba(4,7,16,0.14); }
+.pib-ico { width: 42px; height: 42px; border-radius: 11px; background: var(--grad-gold); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.pib-text strong { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--navy); display: block; }
+.pib-text span { font-size: 12px; font-weight: 300; color: var(--muted-navy); }
+
+/* PORTALS */
+.portals-sec { background: var(--navy); padding: 100px 0; position: relative; overflow: hidden; }
+.portals-sec::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(79,70,229,0.04) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; }
+.portals-orb { position: absolute; width: 520px; height: 520px; border-radius: 50%; filter: blur(120px); pointer-events: none; background: rgba(79,70,229,0.1); top: -120px; right: -100px; }
+.portals-top { text-align: center; margin-bottom: 60px; }
+.portals-top .eyebrow { display: flex; justify-content: center; color: var(--gold-bright); }
+.portals-top .eyebrow::before { background: var(--gold-bright); }
+.portals-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 22px; position: relative; z-index: 2; }
+.p-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(79,70,229,0.1); border-radius: 24px; padding: 40px; transition: transform .3s, background .3s, border-color .3s; }
+.p-card:hover { transform: translateY(-7px); background: rgba(255,255,255,0.06); border-color: rgba(79,70,229,0.28); }
+.p-card.feat { background: var(--grad-gold2); border-color: transparent; box-shadow: var(--sh-gold); }
+.p-card.feat:hover { transform: translateY(-9px); }
+.p-ico { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 24px; }
+.p-card.feat .p-ico { background: rgba(255,255,255,0.16); }
+.p-tag { font-size: 10.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 9px; }
+.p-card.feat .p-tag { color: rgba(255,255,255,0.72); }
+.p-name { font-family: var(--font-display); font-size: 27px; font-weight: 600; color: #fff; line-height: 1.12; margin-bottom: 13px; }
+.p-card.feat .p-name { color: #fff; }
+.p-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.44); line-height: 1.82; }
+.p-card.feat .p-desc { color: rgba(255,255,255,0.82); }
+.p-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: gap .2s, color .2s; }
+.p-link:hover { color: #fff; gap: 13px; }
+.p-card.feat .p-link { color: #fff; }
+.p-card.feat .p-link:hover { color: var(--gold-light); gap: 13px; }
+
+/* WORK */
+.work-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; gap: 32px; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.w-card { border-radius: 22px; overflow: hidden; box-shadow: var(--sh-card); transition: transform .3s, box-shadow .3s; border: 1px solid var(--ivory-mid); background: var(--white); }
+.w-card:hover { transform: translateY(-7px); box-shadow: var(--sh-hover); }
+.w-img { aspect-ratio: 4/3; overflow: hidden; }
+.w-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+.w-card:hover .w-img img { transform: scale(1.06); }
+.w-body { padding: 24px 26px; }
+.w-tags { display: flex; gap: 7px; margin-bottom: 11px; }
+.w-tag { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); background: var(--gold-pale); padding: 3px 11px; border-radius: 100px; }
+.w-title { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--navy); margin-bottom: 9px; line-height: 1.25; }
+.w-result { font-size: 13px; color: var(--muted-navy); display: flex; align-items: center; gap: 9px; }
+.r-pill { background: rgba(16,185,129,0.1); color: #059669; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 100px; }
+
+/* TESTIMONIALS */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.t-card { background: var(--white); border-radius: 22px; border: 1px solid var(--ivory-mid); padding: 34px; box-shadow: var(--sh-card); transition: transform .3s, box-shadow .3s; }
+.t-card:hover { transform: translateY(-5px); box-shadow: var(--sh-hover); }
+.t-stars { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 19px; }
+.t-stars .stars { position: relative; display: inline-block; font-family: Georgia, 'Times New Roman', serif; font-size: 17px; line-height: 1; letter-spacing: 2px; }
+.t-stars .stars::before { content: "\2605\2605\2605\2605\2605"; color: rgba(79,70,229,0.22); }
+.t-stars .stars::after { content: "\2605\2605\2605\2605\2605"; color: var(--gold); position: absolute; left: 0; top: 0; width: calc(var(--rating) / 5 * 100%); overflow: hidden; white-space: nowrap; }
+.t-stars .rate-num { font-family: var(--font-body); font-size: 13px; font-weight: 700; color: var(--gold); }
+.t-text { font-size: 15px; font-weight: 300; color: #3D4D6B; line-height: 1.88; font-style: italic; margin-bottom: 26px; font-family: var(--font-display); }
+.t-author { display: flex; align-items: center; gap: 13px; }
+.t-av { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--gold-pale); }
+.t-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.t-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.t-role { font-size: 12px; font-weight: 300; color: var(--muted-navy); }
+
+/* FAQ */
+.faq-wrap { background: var(--ivory); padding: 100px 0; }
+.faq-inner { max-width: 780px; margin: 0 auto; padding: 0 60px; }
+.faq-top { text-align: center; margin-bottom: 52px; }
+.faq-top .eyebrow { justify-content: center; }
+.faq-top .eyebrow::before { display: none; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid var(--ivory-mid); overflow: hidden; }
+.faq-item:first-child { border-top: 1px solid var(--ivory-mid); }
+.faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 24px 0; gap: 16px; text-align: left; font-family: var(--font-body); transition: color .2s; }
+.faq-q-text { font-size: 15px; font-weight: 500; color: var(--navy); line-height: 1.4; }
+.faq-q:hover .faq-q-text { color: var(--gold); }
+.faq-icon { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; background: var(--gold-pale); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; transition: transform .3s, background .3s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: #fff; }
+.faq-a { font-size: 14px; font-weight: 300; color: var(--muted-navy); line-height: 1.88; max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; }
+.faq-item.open .faq-a { max-height: 220px; padding-bottom: 24px; }
+
+/* CTA */
+.cta-outer { padding: 0 60px; max-width: 1320px; margin: 0 auto; }
+.cta-box {
+  background: var(--navy);
+  border: 1px solid rgba(79,70,229,0.16);
+  border-radius: 30px; padding: 76px 72px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: space-between; gap: 52px;
+}
+.cta-box::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 85% 50%, rgba(79,70,229,0.12) 0%, transparent 52%),
+    radial-gradient(circle at 15% 80%, rgba(79,70,229,0.07) 0%, transparent 44%),
+    radial-gradient(circle, rgba(79,70,229,0.04) 1px, transparent 1px);
+  background-size: auto, auto, 40px 40px;
+  pointer-events: none;
+}
+.cta-box-content { position: relative; z-index: 1; }
+.cta-box h2 { font-family: var(--font-display); font-size: clamp(30px,3.6vw,50px); color: #fff; line-height: 1.1; margin-bottom: 15px; font-weight: 600; }
+.cta-box h2 em { font-style: italic; color: var(--gold-bright); }
+.cta-box p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.48); max-width: 440px; line-height: 1.82; }
+.cta-actions { display: flex; flex-direction: column; gap: 13px; flex-shrink: 0; position: relative; z-index: 1; }
+.btn-white { display: inline-flex; align-items: center; gap: 9px; background: var(--grad-gold); color: #fff; font-size: 15px; font-weight: 700; padding: 16px 32px; border-radius: 100px; text-decoration: none; white-space: nowrap; box-shadow: var(--sh-gold); transition: transform .2s, box-shadow .2s; }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 18px 44px rgba(79,70,229,0.5); }
+.btn-border-w { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(79,70,229,0.24); color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500; padding: 15px 32px; border-radius: 100px; text-decoration: none; transition: border-color .2s, color .2s; }
+.btn-border-w:hover { border-color: rgba(79,70,229,0.6); color: var(--gold-light); }
+
+/* CONTACT */
+.contact-sec { background: var(--cream); padding: 100px 0; position: relative; overflow: hidden; }
+.contact-sec::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 72% 50%, rgba(79,70,229,0.05) 0%, transparent 58%), radial-gradient(ellipse at 18% 80%, rgba(79,70,229,0.04) 0%, transparent 44%); pointer-events: none; }
+.contact-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; position: relative; z-index: 1; }
+.contact-left .eyebrow { margin-bottom: 18px; }
+.contact-left .h2 { margin-bottom: 18px; }
+.contact-left p { font-size: 15px; font-weight: 300; color: var(--muted-navy); line-height: 1.88; max-width: 400px; }
+.contact-info { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+.c-info-item { display: flex; align-items: flex-start; gap: 16px; }
+.c-info-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.c-info-text strong { font-size: 13px; font-weight: 600; color: var(--navy); display: block; letter-spacing: 0.02em; }
+.c-info-text span { font-size: 14px; font-weight: 300; color: var(--muted-navy); }
+.contact-form-wrap { background: var(--white); border-radius: 28px; border: 1px solid var(--ivory-mid); padding: 48px 44px; box-shadow: var(--sh-card); position: relative; }
+.contact-form-wrap::before { content: ''; position: absolute; top: 0; left: 32px; right: 32px; height: 3px; background: var(--grad-gold); border-radius: 0 0 4px 4px; }
+.form-title { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.form-sub { font-size: 14px; font-weight: 300; color: var(--muted-navy); margin-bottom: 34px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.form-group label { font-size: 11.5px; font-weight: 600; color: var(--navy); letter-spacing: 0.07em; text-transform: uppercase; }
+.form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: 14px; font-weight: 400; color: var(--text-dark); background: var(--cream); border: 1.5px solid var(--ivory-mid); border-radius: 12px; padding: 13px 16px; outline: none; transition: border-color .2s, background .2s, box-shadow .2s; resize: none; appearance: none; -webkit-appearance: none; }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(106,122,155,0.45); font-weight: 300; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: var(--white); box-shadow: 0 0 0 4px rgba(79,70,229,0.09); }
+.form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236A7A9B' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+.form-group textarea { min-height: 110px; }
+.form-consent { display: flex; align-items: flex-start; gap: 11px; margin: 20px 0 26px; }
+.form-consent input[type="checkbox"] { width: 17px; height: 17px; flex-shrink: 0; margin-top: 1px; cursor: pointer; accent-color: var(--gold); }
+.form-consent label { font-size: 13px; font-weight: 300; color: var(--muted-navy); line-height: 1.6; cursor: pointer; }
+.form-consent label a { color: var(--gold); text-decoration: underline; }
+.btn-submit { width: 100%; padding: 17px; background: var(--grad-gold); color: var(--navy); font-family: var(--font-body); font-size: 15px; font-weight: 700; letter-spacing: 0.03em; border: none; border-radius: 14px; cursor: pointer; box-shadow: var(--sh-gold); transition: transform .2s, box-shadow .2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 18px 48px rgba(79,70,229,0.46); }
+.form-success { display: none; text-align: center; padding: 40px 20px; }
+.form-success .success-ico { font-size: 52px; margin-bottom: 16px; display: block; }
+.form-success h3 { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.form-success p { font-size: 14px; font-weight: 300; color: var(--muted-navy); line-height: 1.7; }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer { background: var(--navy); position: relative; overflow: hidden; }
+footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--grad-gold); z-index: 2; }
+footer::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(ellipse at 88% 10%, rgba(79,70,229,0.1) 0%, transparent 44%), radial-gradient(ellipse at 5% 90%, rgba(79,70,229,0.06) 0%, transparent 40%); pointer-events: none; }
+
+.ft-main { padding: 70px 60px 0; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px; position: relative; z-index: 1; }
+.ft-logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 18px; }
+.ft-logo-mk { width: 42px; height: 42px; border-radius: 12px; background: var(--grad-gold); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--navy); box-shadow: 0 6px 22px rgba(79,70,229,0.4); }
+.ft-logo-name { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: #fff; line-height: 1; }
+.ft-logo-name span { color: var(--gold-bright); font-style: italic; }
+.ft-desc { font-size: 14px; font-weight: 300; color: rgba(232,228,220,0.38); line-height: 1.9; max-width: 280px; margin-bottom: 28px; }
+.ft-location { display: inline-flex; align-items: center; gap: 8px; background: rgba(79,70,229,0.07); border: 1px solid rgba(79,70,229,0.14); border-radius: 100px; padding: 7px 14px; font-size: 12px; font-weight: 400; color: rgba(232,228,220,0.4); margin-bottom: 26px; }
+.ft-socials { display: flex; gap: 10px; }
+.soc { width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(79,70,229,0.14); background: rgba(79,70,229,0.04); display: flex; align-items: center; justify-content: center; font-size: 15px; text-decoration: none; color: rgba(232,228,220,0.38); transition: all .25s ease; }
+.soc:hover { background: rgba(79,70,229,0.18); border-color: rgba(79,70,229,0.5); color: var(--gold-bright); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(79,70,229,0.2); }
+
+.ft-col-title { font-size: 10.5px; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.ft-col-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(79,70,229,0.4), transparent); }
+.ft-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.ft-links a { font-size: 14px; font-weight: 300; color: rgba(232,228,220,0.38); text-decoration: none; display: flex; align-items: center; gap: 0; transition: color .2s, gap .2s; }
+.ft-links a::before { content: '›'; color: var(--gold); font-size: 16px; font-weight: 600; opacity: 0; width: 0; transition: opacity .2s, width .2s; line-height: 1; }
+.ft-links a:hover { color: rgba(255,255,255,0.88); gap: 6px; }
+.ft-links a:hover::before { opacity: 1; width: 14px; }
+
+.ft-newsletter { margin: 52px 60px 0; padding: 32px 44px; background: rgba(79,70,229,0.05); border: 1px solid rgba(79,70,229,0.12); border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 36px; position: relative; z-index: 1; }
+.ft-newsletter::before { content: ''; position: absolute; left: 0; top: 10%; bottom: 10%; width: 3px; background: var(--grad-gold); border-radius: 0 3px 3px 0; }
+.ft-nl-text strong { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: #fff; display: block; margin-bottom: 4px; }
+.ft-nl-text span { font-size: 13px; font-weight: 300; color: rgba(232,228,220,0.38); }
+.ft-nl-form { display: flex; gap: 10px; flex-shrink: 0; }
+.ft-nl-input { font-family: var(--font-body); font-size: 14px; font-weight: 300; background: rgba(79,70,229,0.07); border: 1px solid rgba(79,70,229,0.16); color: #fff; border-radius: 100px; padding: 12px 22px; outline: none; width: 250px; transition: border-color .2s, background .2s; }
+.ft-nl-input::placeholder { color: rgba(232,228,220,0.24); }
+.ft-nl-input:focus { border-color: rgba(79,70,229,0.5); background: rgba(79,70,229,0.1); }
+.ft-nl-btn { font-family: var(--font-body); font-size: 13px; font-weight: 700; background: var(--grad-gold); color: var(--navy); border: none; border-radius: 100px; padding: 12px 28px; cursor: pointer; white-space: nowrap; box-shadow: var(--sh-gold); transition: transform .2s, box-shadow .2s; }
+.ft-nl-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(79,70,229,0.5); }
+
+.ft-bottom { margin: 40px 60px 0; padding: 22px 0 44px; border-top: 1px solid rgba(79,70,229,0.1); display: flex; align-items: center; justify-content: space-between; gap: 20px; position: relative; z-index: 1; }
+.ft-copy { font-size: 12px; font-weight: 300; color: rgba(232,228,220,0.22); }
+.ft-bottom-links { display: flex; gap: 24px; }
+.ft-bottom-links a { font-size: 12px; font-weight: 300; color: rgba(232,228,220,0.26); text-decoration: none; transition: color .2s; }
+.ft-bottom-links a:hover { color: var(--gold-bright); }
+.ft-bottom-right { display: flex; align-items: center; gap: 20px; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
+.reveal.d1 { transition-delay: .1s; }
+.reveal.d2 { transition-delay: .22s; }
+.reveal.d3 { transition-delay: .34s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width: 1024px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 110px 24px 70px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+  .hero-visual { display: none; }
+  .wrap { padding: 0 24px; }
+  .svc-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-stack { display: none; }
+  .process-inner { grid-template-columns: 1fr; padding: 0 24px; }
+  .portals-grid { grid-template-columns: 1fr; }
+  .work-grid { grid-template-columns: 1fr 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; gap: 28px; padding: 0 24px; }
+  .cta-outer { padding: 0 24px; }
+  .cta-box { flex-direction: column; padding: 52px 36px; }
+  .faq-inner { padding: 0 24px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 52px; padding: 0 24px; }
+  .contact-form-wrap { padding: 36px 28px; }
+  .form-row { grid-template-columns: 1fr; }
+  .ft-main { grid-template-columns: 1fr 1fr; gap: 36px; padding: 52px 24px 0; }
+  .ft-newsletter { margin: 36px 24px 0; flex-direction: column; align-items: flex-start; padding: 28px 28px; }
+  .ft-nl-form { width: 100%; flex-direction: column; }
+  .ft-nl-input { width: 100%; }
+  .ft-bottom { margin: 32px 24px 0; flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+@media(max-width: 640px) {
+  .svc-grid, .work-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .ft-main { grid-template-columns: 1fr; }
+  .ft-bottom-links { flex-wrap: wrap; gap: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo">
+    <span class="logo-mark">MN</span>
+    <span class="logo-name">Market<span>Nuvo</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Free Consultation →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span>#1 Community-Led Growth Partner</div>
+      <h1 class="hero-h1">Craft Your Brand.<br><em>Grow Your Sales.</em><br>Impact Millions.</h1>
+      <p class="hero-p">MarketNuvo connects brands and creators through smart strategy, powerful platforms, and community-led marketing — plus hands-on seller account management to boost your revenue.</p>
+      <div class="hero-btns">
+        <a href="#platforms" class="btn-fill">Explore Platforms <span class="ico">→</span></a>
+        <a href="#work" class="btn-ghost-w">View Our Work →</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-lbl">Trusted by</span>
+        <div class="trust-brands">
+          <span class="trust-brand">Meesho</span>
+          <span class="trust-brand">boAt</span>
+          <span class="trust-brand">Nykaa</span>
+          <span class="trust-brand">Amazon</span>
+          <span class="trust-brand">Flipkart</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;">
+        <div class="fc fc-1"><div class="fc-ico">📈</div><div class="fc-num">3.4×</div><div class="fc-lbl">Avg. Sales Growth</div><div class="fc-pill">↑ +34% this month</div></div>
+        <div class="hero-main-card">
+          <div class="hero-main-img"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop" alt="Team" loading="lazy"></div>
+          <div class="hero-main-body">
+            <div class="hmc-row"><span class="hmc-title">Sales Performance</span><span class="hmc-badge">Live</span></div>
+            <div class="hmc-bar-bg"><div class="hmc-bar"></div></div>
+            <div class="hmc-sub">Revenue target: 78% achieved — Q4 2025</div>
+          </div>
+        </div>
+        <div class="fc fc-2"><div class="fc-ico">🎯</div><div class="fc-num">200K+</div><div class="fc-lbl">Community Members</div></div>
+        <div class="fc fc-3"><div class="fc-ico">⭐</div><div class="fc-num">4.5</div><div class="fc-lbl">Client Rating</div><div class="fc-pill">15+ Clients</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="t-item">Influencer Marketing <span class="t-sep">✦</span></span>
+    <span class="t-item">Seller Account Management <span class="t-sep">✦</span></span>
+    <span class="t-item">Sales Boosting <span class="t-sep">✦</span></span>
+    <span class="t-item">Community Growth <span class="t-sep">✦</span></span>
+    <span class="t-item">Brand Strategy <span class="t-sep">✦</span></span>
+    <span class="t-item">Performance Marketing <span class="t-sep">✦</span></span>
+    <span class="t-item">Content Production <span class="t-sep">✦</span></span>
+    <span class="t-item">7+ Years Experience <span class="t-sep">✦</span></span>
+    <span class="t-item">Influencer Marketing <span class="t-sep">✦</span></span>
+    <span class="t-item">Seller Account Management <span class="t-sep">✦</span></span>
+    <span class="t-item">Sales Boosting <span class="t-sep">✦</span></span>
+    <span class="t-item">Community Growth <span class="t-sep">✦</span></span>
+    <span class="t-item">Brand Strategy <span class="t-sep">✦</span></span>
+    <span class="t-item">Performance Marketing <span class="t-sep">✦</span></span>
+    <span class="t-item">Content Production <span class="t-sep">✦</span></span>
+    <span class="t-item">7+ Years Experience <span class="t-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="sec" id="services">
+  <div class="wrap">
+    <div class="svc-top reveal">
+      <div><div class="eyebrow">What We Do</div><h2 class="h2">Holistic Brand Protection<br>& <em>Growth Services</em></h2></div>
+      <a href="#contact" class="btn-outline">View All Services →</a>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal d1"><div class="svc-ico">🔍</div><div class="svc-name">Influencer Marketing</div><p class="svc-desc">Connect with verified creators who genuinely align with your brand. Data-matched campaigns that drive authentic reach and real conversions.</p><a href="#" class="svc-more">Learn More →</a></div>
+      <div class="svc-card reveal d2"><div class="svc-ico">🛒</div><div class="svc-name">Seller Account Management</div><p class="svc-desc">Full-service management of your Amazon, Flipkart & Meesho accounts — listing optimisation, A+ content, pricing strategy & review management.</p><a href="#" class="svc-more">Learn More →</a></div>
+      <div class="svc-card reveal d3"><div class="svc-ico">📈</div><div class="svc-name">Sales Boosting</div><p class="svc-desc">End-to-end sales acceleration through paid ads, launch strategies, flash sale management and performance funnels built to convert.</p><a href="#" class="svc-more">Learn More →</a></div>
+      <div class="svc-card reveal d1"><div class="svc-ico">📱</div><div class="svc-name">Social Media Marketing</div><p class="svc-desc">Build a consistent, compelling presence across Instagram, YouTube, and more. Strategy, scheduling, community management at scale.</p><a href="#" class="svc-more">Learn More →</a></div>
+      <div class="svc-card reveal d2"><div class="svc-ico">🏘️</div><div class="svc-name">Community Building</div><p class="svc-desc">Turn buyers into brand advocates. We design and grow communities that generate loyalty, word-of-mouth, and repeat revenue.</p><a href="#" class="svc-more">Learn More →</a></div>
+      <div class="svc-card reveal d3"><div class="svc-ico">🎨</div><div class="svc-name">Brand Strategy & Design</div><p class="svc-desc">Position your brand with clarity and conviction. Narratives, visual identities, and go-to-market strategies built for your audience.</p><a href="#" class="svc-more">Learn More →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row reveal">
+  <div class="stats-inner">
+    <div class="st"><div class="st-num">15<sup>+</sup></div><div class="st-lbl">Clients Handled</div></div>
+    <div class="st"><div class="st-num">95<sup>%</sup></div><div class="st-lbl">Success Rate</div></div>
+    <div class="st"><div class="st-num">3.4<sup>×</sup></div><div class="st-lbl">Avg. Sales Growth</div></div>
+    <div class="st"><div class="st-num">200<sup>K</sup></div><div class="st-lbl">Community Members</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="about-img-stack">
+        <div class="a-badge"><div class="a-badge-num">7+</div><div class="a-badge-lbl">Years of<br>Experience</div></div>
+        <div class="a-main"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=80&auto=format&fit=crop" alt="Team" loading="lazy"></div>
+        <div class="a-sec"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80&auto=format&fit=crop" alt="Strategy" loading="lazy"></div>
+      </div>
+      <div>
+        <div class="eyebrow">Our Mission</div>
+        <h2 class="h2">Tailored Solutions,<br><em>Proven Results</em> &<br>Exceptional Service</h2>
+        <p style="font-size:15px;font-weight:300;color:var(--muted-navy);line-height:1.88;margin-top:18px;">We pride ourselves on delivering value that goes beyond expectations. Our approach is centred on understanding your business deeply — from your audience and goals to the channels and communities that will move the needle.</p>
+        <ul class="about-list">
+          <li><span class="chk">✓</span><span>We are more than a service provider — we are your dedicated growth partner, embedded in your success for the long term.</span></li>
+          <li><span class="chk">✓</span><span>We help brands boost sales across every platform — from social commerce to marketplace seller accounts on Amazon & Flipkart.</span></li>
+          <li><span class="chk">✓</span><span>By staying true to data-driven strategy and community intelligence, we help brands of all sizes reach their potential.</span></li>
+        </ul>
+        <div class="exp-badge"><span class="exp-ico">🏆</span><div class="exp-text"><strong>7+ Years of Industry Experience</strong><span>Proven track record across D2C, FMCG, Beauty, EdTech & more</span></div></div>
+        <a href="#contact" class="btn-fill" style="margin-top:30px;display:inline-flex;">Work With Us <span class="ico">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="process-wrap reveal" id="process">
+  <div class="process-inner wrap">
+    <div>
+      <div class="eyebrow">How We Work</div>
+      <h2 class="h2">Our Nuvo<br><em>Process</em></h2>
+      <p class="lead" style="margin-top:16px;">A clear, collaborative process built to get brands from strategy to measurable results as fast as possible.</p>
+      <div class="process-steps" style="margin-top:38px;">
+        <div class="step"><div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Discovery & Brand Audit</div><p class="step-desc">We audit your current brand presence, seller accounts, content, and competitive landscape to identify the highest-leverage growth opportunities.</p></div></div>
+        <div class="step"><div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Strategy & Roadmap</div><p class="step-desc">We build a tailored 90-day growth roadmap — covering influencer selection, content plan, platform strategy, and sales optimisation targets.</p></div></div>
+        <div class="step"><div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Execution & Optimisation</div><p class="step-desc">Our team executes with precision — running campaigns, managing seller accounts, creating content, and continuously optimising based on real data.</p></div></div>
+        <div class="step"><div class="step-left"><div class="step-num">04</div><div class="step-connector"></div></div><div class="step-content"><div class="step-title">Report & Scale</div><p class="step-desc">Transparent reporting every step of the way. We double down on what works and scale your brand's growth with confidence.</p></div></div>
+      </div>
+    </div>
+    <div class="process-img">
+      <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=700&q=80&auto=format&fit=crop" alt="Process" loading="lazy">
+      <div class="process-img-badge"><div class="pib-ico">🚀</div><div class="pib-text"><strong>90-Day Growth Sprint</strong><span>From strategy to measurable sales growth</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLATFORMS -->
+<div class="portals-sec reveal" id="platforms">
+  <div class="portals-orb"></div>
+  <div class="wrap">
+    <div class="portals-top">
+      <div class="eyebrow" style="justify-content:center;">Our Platforms</div>
+      <h2 class="h2 h2-white" style="text-align:center;margin-bottom:14px;">Powerful Portals for<br><em>Brands & Creators</em></h2>
+      <p class="lead" style="text-align:center;margin:0 auto;color:rgba(232,228,220,0.38);">Smart tools that connect the right brands with the right creators — backed by data, strategy, and community intelligence.</p>
+    </div>
+    <div class="portals-grid">
+      <div class="p-card feat"><div class="p-ico">🚀</div><div class="p-tag">Flagship Platform</div><div class="p-name">Creator Connect Portal</div><p class="p-desc">The central hub connecting brands with 10,000+ vetted creators. Smart matching, campaign management, and real-time analytics — all in one place.</p><a href="#contact" class="p-link">Explore Platform →</a></div>
+      <div class="p-card"><div class="p-ico">📊</div><div class="p-tag">For Brands</div><div class="p-name">Seller Dashboard</div><p class="p-desc">Manage your marketplace presence, track performance, and optimise listings across Amazon, Flipkart and Meesho in one unified dashboard.</p><a href="#" class="p-link">Learn More →</a></div>
+      <div class="p-card"><div class="p-ico">🎙️</div><div class="p-tag">For Creators</div><div class="p-name">Creator Studio</div><p class="p-desc">Discover the best brand deals, manage collaborations, and grow your creator business with tools built for modern Indian influencers.</p><a href="#" class="p-link">Learn More →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<div class="sec" id="work">
+  <div class="wrap">
+    <div class="work-top reveal">
+      <div><div class="eyebrow">Case Studies</div><h2 class="h2">See How We Drive<br><em>Real Business Growth</em></h2></div>
+      <a href="#contact" class="btn-outline">All Case Studies →</a>
+    </div>
+    <div class="work-grid">
+      <div class="w-card reveal d1"><div class="w-img"><img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div><div class="w-body"><div class="w-tags"><span class="w-tag">Influencer</span><span class="w-tag">D2C</span></div><div class="w-title">D2C Fashion Brand Launch</div><div class="w-result">Result: <span class="r-pill">↑ 3.5× Sales in 90 days</span></div></div></div>
+      <div class="w-card reveal d2"><div class="w-img"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div><div class="w-body"><div class="w-tags"><span class="w-tag">Seller Mgmt</span><span class="w-tag">Amazon</span></div><div class="w-title">Marketplace Seller Scale-up</div><div class="w-result">Result: <span class="r-pill">↑ 5× Revenue on Amazon</span></div></div></div>
+      <div class="w-card reveal d3"><div class="w-img"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div><div class="w-body"><div class="w-tags"><span class="w-tag">Community</span><span class="w-tag">Content</span></div><div class="w-title">EdTech Community Scale-up</div><div class="w-result">Result: <span class="r-pill">↑ 80K Members in 6 months</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="sec sec-alt reveal">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:52px;">
+      <div class="eyebrow" style="justify-content:center;">Client Reviews</div>
+      <h2 class="h2" style="text-align:center;">What Our Clients Say<br>About <em>MarketNuvo</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="t-card"><div class="t-stars"><span class="stars" style="--rating:5"></span><span class="rate-num">5.0</span></div><p class="t-text">"MarketNuvo completely transformed our influencer strategy. Within 3 months we saw a 3× increase in conversions. Their community-led approach is genuinely different."</p><div class="t-author"><div class="t-name">Panca</div></div></div>
+      <div class="t-card"><div class="t-stars"><span class="stars" style="--rating:4"></span><span class="rate-num">4.0</span></div><p class="t-text">"Their seller account management is exceptional. They took over our Amazon store and grew monthly revenue 5× in just 4 months. The detail in their approach is unmatched."</p><div class="t-author"><div class="t-name">Tago</div></div></div>
+      <div class="t-card"><div class="t-stars"><span class="stars" style="--rating:4.5"></span><span class="rate-num">4.5</span></div><p class="t-text">"Working with MarketNuvo felt like having a seasoned internal team. Their strategic thinking mixed with execution capability is rare to find — genuinely a growth partner."</p><div class="t-author"><div class="t-name">Toplot</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-wrap reveal" id="faq">
+  <div class="faq-inner">
+    <div class="faq-top">
+      <div class="eyebrow" style="justify-content:center;">FAQ</div>
+      <h2 class="h2" style="text-align:center;">Frequently Asked<br><em>Questions</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What does MarketNuvo's seller account management include?</span><span class="faq-icon">+</span></button><div class="faq-a">We handle everything — product listing creation and optimisation, A+ content, keyword research, sponsored ads management, pricing strategy, review management, and monthly performance reporting across Amazon, Flipkart, and Meesho.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How quickly can we expect to see results?</span><span class="faq-icon">+</span></button><div class="faq-a">Most clients begin seeing measurable improvement within 30–45 days. Our 90-day growth sprint is designed to achieve significant, sustainable results within the first quarter of working together.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is your process suited for small or new brands?</span><span class="faq-icon">+</span></button><div class="faq-a">Absolutely. We work with brands at every stage — from first-time D2C founders to established FMCG players. Our process is tailored to your current stage and budget, not a one-size-fits-all package.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do you choose influencers for our brand?</span><span class="faq-icon">+</span></button><div class="faq-a">We use audience data, engagement quality analysis, and brand alignment scoring — not just follower counts. Every creator we recommend is vetted for authenticity and genuine connection with your target audience.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do you offer a free initial consultation?</span><span class="faq-icon">+</span></button><div class="faq-a">Yes! We offer a complimentary 30-minute discovery call where we review your brand, goals, and current digital footprint — and share exactly what we would do to accelerate your growth. No commitment required.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div style="padding:88px 0;background:var(--cream);">
+  <div class="cta-outer">
+    <div class="cta-box reveal">
+      <div class="cta-box-content">
+        <h2>Ready to <em>Scale</em> Your Brand?</h2>
+        <p>Book a free consultation. We'll map out exactly how MarketNuvo can help you grow your brand, boost your sales, and build a community that lasts.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#contact" class="btn-white">🚀 Book Free Consultation</a>
+        <a href="mailto:marketnuvo@gmail.com" class="btn-border-w">✉ marketnuvo@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM -->
+<div class="contact-sec" id="contact">
+  <div class="contact-inner wrap">
+    <div class="contact-left reveal">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="h2">Let's Build Something<br><em>Great Together</em></h2>
+      <p>Fill in the form and our team will get back to you within 24 hours. No sales pressure — just a focused conversation about your growth.</p>
+      <div class="contact-info">
+        <div class="c-info-item"><div class="c-info-ico">📍</div><div class="c-info-text"><strong>Our Office</strong><span>Mumbai, Maharashtra, India</span></div></div>
+        <div class="c-info-item"><div class="c-info-ico">✉️</div><div class="c-info-text"><strong>Email Us</strong><span>marketnuvo@gmail.com</span></div></div>
+        <div class="c-info-item"><div class="c-info-ico">📞</div><div class="c-info-text"><strong>Call Us</strong><span>+91 79827 53959</span></div></div>
+        <div class="c-info-item"><div class="c-info-ico">⏱️</div><div class="c-info-text"><strong>Response Time</strong><span>Within 24 hours on business days</span></div></div>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal d2">
+      <div id="formContent">
+        <div class="form-title">Send Us a Message</div>
+        <div class="form-sub">We'd love to hear about your brand and goals.</div>
+        <div class="form-row">
+          <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" placeholder="Priya"></div>
+          <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="Mehta"></div>
+        </div>
+        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="priya@brand.com"></div>
+        <div class="form-group"><label for="phone">Phone / WhatsApp</label><input type="tel" id="phone" placeholder="+91 79827 53959"></div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service">
+            <option value="" disabled selected>Select a service...</option>
+            <option>Influencer Marketing</option>
+            <option>Seller Account Management</option>
+            <option>Sales Boosting</option>
+            <option>Social Media Marketing</option>
+            <option>Community Building</option>
+            <option>Brand Strategy & Design</option>
+            <option>Multiple Services</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="brand">Brand / Company Name</label><input type="text" id="brand" placeholder="Your Brand Name"></div>
+        <div class="form-group"><label for="message">Tell Us About Your Goals</label><textarea id="message" placeholder="Share what you're looking to achieve — we'll suggest the best approach..."></textarea></div>
+        <div class="form-consent">
+          <input type="checkbox" id="consent">
+          <label for="consent">I agree to be contacted by MarketNuvo regarding my enquiry. View our <a href="#">Privacy Policy</a>.</label>
+        </div>
+        <button class="btn-submit" onclick="submitForm()">Send Message &nbsp;→</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <span class="success-ico">🎉</span>
+        <h3>Message Received!</h3>
+        <p>Thank you for reaching out. Our team will review your enquiry and get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-main">
+    <div class="ft-brand">
+      <a href="#" class="ft-logo">
+        <span class="ft-logo-mk">MN</span>
+        <span class="ft-logo-name">Market<span>Nuvo</span></span>
+      </a>
+      <p class="ft-desc">Community-driven growth partner for brands and creators across India. 7+ years scaling D2C, FMCG, Beauty & EdTech brands to their full potential.</p>
+      <div class="ft-location"><span>📍</span> Mumbai, Maharashtra, India</div>
+      <div class="ft-socials">
+        <a class="soc" href="#" title="Instagram">📸</a>
+        <a class="soc" href="#" title="LinkedIn">💼</a>
+        <a class="soc" href="#" title="Twitter / X">𝕏</a>
+        <a class="soc" href="#" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-title">Services</div>
+      <ul class="ft-links">
+        <li><a href="#">Influencer Marketing</a></li>
+        <li><a href="#">Seller Account Mgmt</a></li>
+        <li><a href="#">Sales Boosting</a></li>
+        <li><a href="#">Social Media</a></li>
+        <li><a href="#">Community Building</a></li>
+        <li><a href="#">Brand Strategy</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-title">Platforms</div>
+      <ul class="ft-links">
+        <li><a href="#">Creator Connect</a></li>
+        <li><a href="#">Seller Dashboard</a></li>
+        <li><a href="#">Creator Studio</a></li>
+      </ul>
+      <div class="ft-col-title" style="margin-top:28px;">Marketplaces</div>
+      <ul class="ft-links">
+        <li><a href="#">Amazon India</a></li>
+        <li><a href="#">Flipkart</a></li>
+        <li><a href="#">Meesho</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-title">Company</div>
+      <ul class="ft-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Case Studies</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+      <div class="ft-col-title" style="margin-top:28px;">Reach Us</div>
+      <ul class="ft-links">
+        <li><a href="mailto:marketnuvo@gmail.com">marketnuvo@gmail.com</a></li>
+        <li><a href="tel:+917982753959">+91 79827 53959</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ft-newsletter">
+    <div class="ft-nl-text">
+      <strong>Stay ahead of the curve.</strong>
+      <span>Brand growth tips, influencer insights & platform updates — straight to your inbox.</span>
+    </div>
+    <div class="ft-nl-form">
+      <input class="ft-nl-input" type="email" placeholder="your@email.com">
+      <button class="ft-nl-btn">Subscribe →</button>
+    </div>
+  </div>
+
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 MarketNuvo. All rights reserved.</span>
+    <div class="ft-bottom-right">
+      <div class="ft-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function submitForm() {
+  const email = document.getElementById('email').value.trim();
+  const consent = document.getElementById('consent').checked;
+  if (!email) { document.getElementById('email').focus(); return; }
+  if (!consent) { alert('Please agree to our privacy policy to proceed.'); return; }
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
